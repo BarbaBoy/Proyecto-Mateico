@@ -1,0 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#Hero{
+  width: 100%;
+  height: 805px;
+  background: url(../img/la-seleccion-argentina-y-el-mate-1.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 32px;
+
+}

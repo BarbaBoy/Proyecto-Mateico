@@ -1,6 +1,7 @@
 const shopContent = document.getElementById("shopContent");
 const verCarrito = document.getElementById("verCarrito");
 const modalContainer = document.getElementById("modal-container");
+const cantidadCarrito = document.getElementById("cantidadCarrito");
 
 
 let carrito = [];
@@ -11,7 +12,7 @@ productos.forEach((product) => {
     content.innerHTML = `
     <img src="${product.imagen}">
     <h3>${product.titulo}</h3>
-    <p class="price">${product.precio} $</p>
+    <p>${product.precio} $</p>
     `;
 
     shopContent.append(content);
@@ -23,15 +24,28 @@ productos.forEach((product) => {
     content.append(comprar);
 
     comprar.addEventListener("click", () => {
-        carrito.push({
-            id: product.id,
-            imagen: product.imagen,
-            titulo: product.titulo,
-            precio: product.precio,
-        });
-        console.log(carrito);
-    })
 
+        const repeat = carrito.some((repeatProduct) => repeatProduct.id === product.id);
+
+        if (repeat) {
+            carrito.map((prod) => {
+                if (prod.id === product.id) {
+                    prod.cantidad++;
+                }
+            });
+        } else {
+
+            carrito.push({
+                id: product.id,
+                imagen: product.imagen,
+                titulo: product.titulo,
+                precio: product.precio,
+                cantidad: product.cantidad,
+            });
+        }
+                console.log(carrito);
+                carritoCounter();
+    });
 });
 
 
@@ -42,7 +56,7 @@ const pintarCarrito = () => {
     const modalHeader = document.createElement("div");
     modalHeader.className = "modal-header";
     modalHeader.innerHTML = `
-    <h1 class="modal-header-title">Carrito.<h1>
+    <h1 class="modal-header-title">Carrito:<h1>
     `;
     modalContainer.append(modalHeader);
 
@@ -60,9 +74,11 @@ const pintarCarrito = () => {
         let carritoContent = document.createElement("div");
         carritoContent.className = "modal-content"
         carritoContent.innerHTML = `
-    <img src=${product.imagen}>
+        <img src="${product.imagen}">
         <h3>${product.titulo}</h3>
         <p>$${product.precio}</p>
+        <p>Cantidad: ${product.cantidad}</p>
+        <p>Total: ${product.cantidad * product.precio}</p>
     `;
         modalContainer.append(carritoContent);
 
@@ -74,11 +90,11 @@ const pintarCarrito = () => {
         eliminar.addEventListener("click", eliminarProducto);
     });
 
-    const total = carrito.reduce((acc, el) => acc + el.precio, 0);
+    const total = carrito.reduce((acc, el) => acc + el.precio * el.cantidad, 0);
 
     const totalBuying = document.createElement("div")
     totalBuying.className = "total-content"
-    totalBuying.innerHTML = `Total a pagar ${total} $`;
+    totalBuying.innerHTML = `Total a pagar: $${total}`;
     modalContainer.append(totalBuying);
 };
 
@@ -93,3 +109,10 @@ const eliminarProducto = () => {
 
     pintarCarrito();
 }; 
+
+
+const carritoCounter = () => {
+    cantidadCarrito.style.display = "block";
+    cantidadCarrito.innerText = carrito.length;
+
+}

@@ -50,7 +50,7 @@
 .modal-container {
     width: 80%;
     margin: 0 10%;
-    max-height: 88vh;
+    max-height: 100vh;
     color: white;
     background-color: #121212;
     display: flex;
@@ -96,8 +96,8 @@
 }
 
 .modal-container > div > img {
-    height: 120px;
-    width: 120px;
+    height: 100px;
+    width: 100px;
 }
 
 .total-content {
@@ -110,4 +110,18 @@
 /* delete button product */
 .delete-product {
     cursor: pointer;
+}
+
+/* CarritoCounter */
+
+.cantidad-carrito {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    padding: 4px;
+    top: 37px;
+    right: 14px;
+    position: absolute;
+    display: none;
 }

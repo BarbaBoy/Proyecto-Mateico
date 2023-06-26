@@ -106,3 +106,8 @@
     text-align: center;
     padding-top: 20px;
 }
+
+/* delete button product */
+.delete-product {
+    cursor: pointer;
+}
